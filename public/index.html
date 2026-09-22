@@ -167,7 +167,48 @@
 
   <footer class="site-footer">
     <p>愿每一份心意都被温柔接住 · 因节而异，因人而暖</p>
+    <button type="button" class="version-link" id="version-link" aria-haspopup="dialog" aria-controls="version-modal">版本记录 · v2.0.0</button>
   </footer>
+
+  <div class="modal" id="version-modal" role="dialog" aria-modal="true" aria-labelledby="version-title" hidden>
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-panel" role="document">
+      <header class="modal-head">
+        <h2 id="version-title">功能迭代记录</h2>
+        <button type="button" class="modal-close" id="version-close" aria-label="关闭">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+      </header>
+      <div class="modal-body">
+        <section class="release is-latest">
+          <p class="release-head"><span class="release-ver">v2.0.0</span><span class="release-tag">最新</span><span class="release-date">2026-09-22</span></p>
+          <ul>
+            <li>节日库扩充至 24 个中外节日，含 7 个少数民族节日与专属民族标签</li>
+            <li>智能选节：按公历、农历、伊斯兰历及「第 N 周的星期 X」自动高亮应景节日</li>
+            <li>受赠人档案（姓名 / 年龄 / 性别 / 职业）搭配敬赠人关系，生成应景应人的专属祝福</li>
+            <li>祝福文案规范：不出现年龄数字，正文不含受赠人姓名，落款上方祝词不含双方姓名</li>
+            <li>AI 手绘插画：节日场景 + 人物特征 + 随机艺术风格，异步任务轮询生成</li>
+            <li>祝福卡合成：称呼顶格加冒号、正文首行缩进两格，内含诗句、落款与分享二维码</li>
+            <li>支持一键下载与系统分享，新增使用统计与接口限流</li>
+          </ul>
+        </section>
+        <section class="release">
+          <p class="release-head"><span class="release-ver">v1.1.0</span><span class="release-date">2026-09-20</span></p>
+          <ul>
+            <li>节日切换改为「中华 / 世界 / 民族」三段式胶囊导航</li>
+            <li>卡片新增节日图标，选中态放大高亮</li>
+            <li>移动端适配：确保完整显示一张节日卡片，头部统计标签防遮挡</li>
+          </ul>
+        </section>
+        <section class="release">
+          <p class="release-head"><span class="release-ver">v1.0.0</span><span class="release-date">2026-09-18</span></p>
+          <ul>
+            <li>首个版本：选择节日并填写档案，生成应景应人的祝福语与配图，支持下载与分享</li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </div>
 
   <canvas id="compose-canvas" hidden></canvas>
   <script src="./qrcode.min.js"></script>

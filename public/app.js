@@ -662,6 +662,8 @@ async function composeCard() {
   const b = state.blessing || {};
   const name = state.profile ? state.profile.name : '';
   const giver = state.profile ? state.profile.giver : '';
+  // 称呼：顶格并加冒号（去掉模型可能带回的尾部标点，避免重复）
+  const salutation = String(b.salutation || name || '').replace(/[：:，,。.、！!？?\s]+$/g, '') + '：';
   const serif = '"Noto Serif SC", "Songti SC", "SimSun", serif';
   const hand = '"Ma Shan Zheng", "KaiTi", ' + serif;
 
@@ -672,7 +674,8 @@ async function composeCard() {
   const ctx = canvas.getContext('2d');
   ctx.textAlign = 'center';
   ctx.font = '400 30px ' + serif;
-  const bodyLines = wrapText(ctx, b.blessing || '', W - PAD * 2).slice(0, 5);
+  // 正文首行缩进 2 个字符（全角空格），整体左对齐排版
+  const bodyLines = wrapText(ctx, '　　' + (b.blessing || ''), W - PAD * 2).slice(0, 5);
   ctx.font = '400 34px ' + hand;
   const verseLines = [];
   for (const seg of splitVerseLines(b.verse)) {
@@ -684,7 +687,8 @@ async function composeCard() {
   }
 
   const TITLE_Y = IMG_H + 74;
-  const BODY_START = TITLE_Y + 58;
+  const SAL_Y = TITLE_Y + 62;
+  const BODY_START = SAL_Y + 54;
   const bodyEnd = BODY_START + Math.max(bodyLines.length - 1, 0) * 46;
   const verseEnd = bodyEnd + 56 + Math.max(verseLines.length - 1, 0) * 44;
   const wishY = verseEnd + 60;
@@ -704,11 +708,18 @@ async function composeCard() {
   ctx.font = '700 40px ' + serif;
   ctx.fillText(b.title || '节日快乐', W / 2, TITLE_Y);
 
-  let y = BODY_START;
+  // 称呼：顶格 + 冒号
+  ctx.textAlign = 'left';
   ctx.fillStyle = theme.ink || '#3b2416';
-  ctx.font = '400 30px ' + serif;
-  for (const line of bodyLines) { ctx.fillText(line, W / 2, y); y += 46; }
+  ctx.font = '700 30px ' + serif;
+  ctx.fillText(salutation, PAD, SAL_Y);
 
+  // 正文：左对齐，首行已带 2 个字符缩进
+  ctx.font = '400 30px ' + serif;
+  let y = BODY_START;
+  for (const line of bodyLines) { ctx.fillText(line, PAD, y); y += 46; }
+
+  ctx.textAlign = 'center';
   if (verseLines.length) {
     y = bodyEnd + 56;
     ctx.fillStyle = theme.gold || '#c8912a';
@@ -838,6 +849,33 @@ async function loadStats() {
     $('site-stats').hidden = false;
   } catch (err) { /* 统计不可用时静默 */ }
 }
+
+/* ---------------- 版本记录弹窗 ---------------- */
+
+(function initVersionModal() {
+  const modal = $('version-modal');
+  const link = $('version-link');
+  const closeBtn = $('version-close');
+  if (!modal || !link || !closeBtn) return;
+  let lastFocus = null;
+
+  function open() {
+    lastFocus = document.activeElement;
+    modal.hidden = false;
+    document.body.style.overflow = 'hidden';
+    closeBtn.focus();
+  }
+  function close() {
+    modal.hidden = true;
+    document.body.style.overflow = '';
+    if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+  }
+
+  link.addEventListener('click', open);
+  closeBtn.addEventListener('click', close);
+  modal.addEventListener('click', (e) => { if (e.target.hasAttribute('data-close')) close(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !modal.hidden) close(); });
+})();
 
 /* ---------------- 事件绑定 ---------------- */
 
