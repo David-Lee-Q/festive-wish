@@ -1,0 +1,18 @@
+{
+  "name": "festival-blessing",
+  "version": "2.0.0",
+  "private": true,
+  "description": "中外节日专属祝福生成器 - 选择节日并输入姓名/年龄/性别，生成应景应人的祝福语与配图，支持下载与分享",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  }
+}

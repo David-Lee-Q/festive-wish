@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="选择节日，填写受赠人姓名、年龄与性别，生成应景又应人的祝福语与手绘风配图，支持下载与分享。" />
+  <title>节日祝福生成器</title>
+  <link rel="icon" href="/icons/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" id="dyn-icon" href="/icons/favicon.svg" type="image/png" sizes="any" />
+  <link rel="apple-touch-icon" href="/icons/icon-180.png" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <meta name="theme-color" content="#d9482b" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="节日祝福" />
+  <meta name="format-detection" content="telephone=no" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@500;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="site-stats" id="site-stats" hidden title="累计使用人数与生成卡片数">
+    已有 <b id="stat-users">0</b> 人生成了 <b id="stat-gens">0</b> 张卡片
+  </div>
+
+  <div class="bg-decor" aria-hidden="true">
+    <span class="blob blob-1"></span>
+    <span class="blob blob-2"></span>
+    <span class="blob blob-3"></span>
+    <div class="doodle-field" id="doodle-field"></div>
+  </div>
+
+  <header class="site-header">
+    <div class="badge">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <span id="festival-badge-text">中外节日 · 专属祝福</span>
+    </div>
+    <h1 class="hero-title" id="hero-title">节日专属祝福</h1>
+    <p class="hero-sub">选择节日，填写受赠人的<span class="hl">姓名、年龄与性别</span>，生成应景又应人的祝福语与手绘风配图。</p>
+    <p class="today-hint" id="today-hint" hidden></p>
+  </header>
+
+  <main class="layout">
+    <section class="panel form-panel" aria-label="信息填写">
+      <form id="form" novalidate>
+        <div class="field">
+          <div class="field-head">
+            <span class="label-text">选择节日</span>
+            <span class="field-hint" id="festival-hint">已绑定风格：—</span>
+          </div>
+          <div class="festival-groups" id="festival-groups" role="radiogroup" aria-label="选择节日"></div>
+        </div>
+
+        <div class="field">
+          <label for="name">受赠人</label>
+          <div class="input-wrap">
+            <svg class="field-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="8" r="3.4" stroke="currentColor" stroke-width="1.7"/><path d="M5 19.5c1.2-3.3 3.8-5 7-5s5.8 1.7 7 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+            <input id="name" name="name" type="text" maxlength="24" autocomplete="off" placeholder="例如：张老师 / 妈妈 / 小明" />
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="field">
+            <label for="age">年龄</label>
+            <div class="stepper">
+              <button type="button" class="step-btn" data-step="-1" aria-label="减小年龄">&minus;</button>
+              <input id="age" name="age" type="number" inputmode="numeric" min="1" max="120" value="35" />
+              <button type="button" class="step-btn" data-step="1" aria-label="增大年龄">+</button>
+            </div>
+          </div>
+
+          <div class="field">
+            <span class="label-text">性别</span>
+            <div class="segmented" id="gender" role="radiogroup" aria-label="性别">
+              <button type="button" role="radio" data-value="male" aria-checked="false">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10" cy="14" r="5" stroke="currentColor" stroke-width="1.7"/><path d="M14 10l5-5M15 5h4v4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                男士
+              </button>
+              <button type="button" role="radio" data-value="female" aria-checked="false">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="9" r="5" stroke="currentColor" stroke-width="1.7"/><path d="M12 14v6M9 17h6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+                女士
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="occupation">职业 <span class="optional-tag">选填</span></label>
+          <div class="input-wrap">
+            <svg class="field-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="7.5" width="18" height="13" rx="2.2" stroke="currentColor" stroke-width="1.7"/><path d="M9 7.5V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1.5M3 12.5h18" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+            <input id="occupation" name="occupation" type="text" maxlength="24" autocomplete="off" placeholder="例如：教师 / 医生 / 设计师（可不填）" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="giver">敬赠人</label>
+          <div class="input-wrap">
+            <svg class="field-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2.2" stroke="currentColor" stroke-width="1.7"/><path d="M3.8 7 12 13l8.2-6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <input id="giver" name="giver" type="text" maxlength="24" autocomplete="off" placeholder="例如：你的学生小明 / 女儿小红" />
+          </div>
+        </div>
+
+        <p class="form-error" id="form-error" role="alert" hidden></p>
+
+        <button type="submit" class="btn-primary" id="submit-btn">
+          <span>生成专属祝福</span>
+        </button>
+      </form>
+
+    </section>
+
+    <section class="panel result-panel" id="result" aria-live="polite" hidden>
+      <div class="result-head">
+        <div>
+          <p class="eyebrow" id="result-eyebrow">专属祝福已生成</p>
+          <h2 id="result-title">致最温暖的引路人</h2>
+        </div>
+        <div class="result-actions">
+          <button type="button" class="btn-ghost" id="regen-btn">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 5v6h-6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            换一版
+          </button>
+        </div>
+      </div>
+
+      <div class="result-grid">
+        <article class="card-paper" id="letter">
+          <p class="salutation" id="r-salutation">朋友</p>
+          <p class="blessing-text" id="r-blessing"></p>
+          <p class="verse" id="r-verse"></p>
+          <p class="wish" id="r-wish"></p>
+          <div class="letter-foot">
+            <span class="seal" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </span>
+            <span id="r-name-tag">—— 敬上</span>
+          </div>
+        </article>
+
+        <figure class="card-image" id="image-card">
+          <div class="image-skeleton" id="image-skeleton">
+            <div class="spinner" aria-hidden="true"></div>
+            <p id="image-status">正在绘制专属插画，通常需 30–60 秒…</p>
+          </div>
+          <img id="r-image" alt="节日专属插画" hidden />
+          <figcaption id="r-caption">AI 手绘风节日插画</figcaption>
+        </figure>
+      </div>
+
+      <div class="result-foot">
+        <button type="button" class="btn-primary" id="share-btn">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="18" cy="5" r="2.6" stroke="currentColor" stroke-width="1.7"/><circle cx="6" cy="12" r="2.6" stroke="currentColor" stroke-width="1.7"/><circle cx="18" cy="19" r="2.6" stroke="currentColor" stroke-width="1.7"/><path d="m8.3 10.7 7.4-4.3M8.3 13.3l7.4 4.3" stroke="currentColor" stroke-width="1.7"/></svg>
+          分享图文祝福
+        </button>
+        <button type="button" class="btn-ghost" id="download-card-btn">下载图文祝福卡</button>
+        <button type="button" class="btn-ghost" id="copy-btn">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M5 15V6a2 2 0 0 1 2-2h9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+          复制祝福语
+        </button>
+        <button type="button" class="btn-ghost" id="download-img-btn">仅下载插画</button>
+      </div>
+      <p class="result-tip" id="result-tip" hidden></p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>愿每一份心意都被温柔接住 · 因节而异，因人而暖</p>
+  </footer>
+
+  <canvas id="compose-canvas" hidden></canvas>
+  <script src="./qrcode.min.js"></script>
+  <script src="./festival-icons.js"></script>
+  <script src="./festival-date.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
