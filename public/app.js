@@ -229,6 +229,23 @@ function renderFestivals() {
   window.addEventListener('resize', updateNav);
   updateNav();
 
+  // 兜底：仅在已滚到行尾时，若末卡几乎不可见（iOS 惯性+吸附偶发停到空白区）才拉回行尾
+  let settleTimer = 0;
+  const settleGuard = () => {
+    clearTimeout(settleTimer);
+    settleTimer = setTimeout(() => {
+      if (grid.scrollLeft + grid.clientWidth < grid.scrollWidth - 40) return;
+      const cards = grid.querySelectorAll('.festival-card');
+      const last = cards[cards.length - 1];
+      if (!last) return;
+      const gr = grid.getBoundingClientRect();
+      const lr = last.getBoundingClientRect();
+      const visible = Math.min(lr.right, gr.right) - Math.max(lr.left, gr.left);
+      if (visible < 40) grid.scrollTo({ left: grid.scrollWidth, behavior: 'smooth' });
+    }, 150);
+  };
+  grid.addEventListener('scroll', settleGuard, { passive: true });
+
   wrap.appendChild(tabs);
   wrap.appendChild(row);
   revealSelectedCard();

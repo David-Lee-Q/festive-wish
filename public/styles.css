@@ -388,10 +388,13 @@ input::placeholder { color: #bda08d; }
   padding: 20px 14px 40px;
   margin: -20px 0 -40px;
   scroll-snap-type: x proximity;
-  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
   scrollbar-width: none;
   -ms-overflow-style: none;
   cursor: grab;
+  /* 强制独立合成层：修复 iOS Safari 中父级 backdrop-filter 导致横向滚动内容偶发不重绘（卡片空白）的问题 */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 .festival-grid::-webkit-scrollbar { display: none; }
 .festival-grid--dragging { cursor: grabbing; scroll-snap-type: none; }
@@ -730,7 +733,8 @@ button:focus-visible, a:focus-visible, input:focus-visible {
   }
   .festival-nav-btn { width: 30px; height: 30px; margin-bottom: 8px; }
   .festival-nav-btn svg { width: 15px; height: 15px; }
-  .festival-card { width: min(244px, 100%); }
+  /* 同时声明 start/end 吸附点，修复 iOS 惯性滚动到行尾停在空白区（末卡不可达）的问题 */
+  .festival-card { width: min(244px, 100%); scroll-snap-align: start end; }
   /* 手机端选中卡不放大：卡片恰好占满一屏，放大后会与滚动吸附/内边距冲突而被裁边 */
   .festival-card[aria-checked="true"],
   .festival-card[aria-checked="true"]:hover { transform: none; }
