@@ -28,6 +28,20 @@
     'shoton': ['prayer-wheel', 'mountain', 'sun', 'cloud'],
     'eid-fitr': ['crescent', 'moon', 'star', 'sparkle'],
     'eid-al-adha': ['crescent', 'sun', 'star', 'sparkle'],
+    'birthday': ['candle', 'balloon', 'gift', 'star', 'heart'],
+    'love-anniversary': ['heart', 'flower', 'star', 'balloon'],
+    'engagement': ['heart', 'sparkle', 'flower', 'cup'],
+    'wedding-anniversary': ['heart', 'sparkle', 'bell', 'flower', 'cup'],
+    'newborn': ['star', 'cloud', 'heart', 'bird', 'sparkle'],
+    'full-moon': ['moon', 'star', 'cloud', 'rabbit'],
+    'hundred-day': ['egg', 'gift', 'heart', 'star', 'sparkle'],
+    'first-birthday': ['gift', 'balloon', 'star', 'heart'],
+    'graduation': ['book', 'star', 'flower', 'sun'],
+    'school-admission': ['book', 'star', 'sun', 'sparkle'],
+    'promotion': ['star', 'sun', 'sparkle', 'gift'],
+    'new-home': ['tree', 'flower', 'sun', 'lantern'],
+    'business-opening': ['firecracker', 'ingot', 'lantern', 'star'],
+    'retirement': ['flower', 'cup', 'sun', 'mountain'],
     'default': ['star', 'sparkle', 'heart', 'moon']
   };
 

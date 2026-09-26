@@ -15,8 +15,8 @@ const state = {
   genToken: 0
 };
 
-const GROUP_ORDER = ['cn', 'world', 'minority'];
-const GROUP_TITLE = { cn: '中国节日', world: '世界节日', minority: '少数民族节日' };
+const GROUP_ORDER = ['cn', 'world', 'minority', 'special'];
+const GROUP_TITLE = { cn: '中国节日', world: '世界节日', minority: '少数民族节日', special: '特殊时刻' };
 
 /* ---------------- 主题配色 ---------------- */
 

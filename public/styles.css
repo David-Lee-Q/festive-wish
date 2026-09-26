@@ -319,8 +319,10 @@ input::placeholder { color: #bda08d; }
 .festival-tabs {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 4px;
   width: fit-content;
+  max-width: 100%;
   margin: 0 auto;
   padding: 5px;
   border: 1.6px solid var(--line);
