@@ -95,6 +95,10 @@ function applyTheme(theme) {
   root.setProperty('--line', theme.line);
   root.setProperty('--ink-soft', mixHex(theme.ink, '#ffffff', 0.28));
   root.setProperty('--ink-muted', mixHex(theme.ink, '#ffffff', 0.48));
+  root.setProperty('--on-bg', theme.onBg || 'var(--ink)');
+  root.setProperty('--on-bg-soft', theme.onBgSoft || 'var(--ink-soft)');
+  root.setProperty('--on-bg-muted', theme.onBgMuted || 'var(--ink-muted)');
+  root.setProperty('--on-bg-hl', theme.onBgHl || 'var(--primary-deep)');
   syncChrome(theme);
 }
 

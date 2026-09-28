@@ -8,6 +8,10 @@
   --primary: #d9482b;
   --primary-deep: #b23018;
   --primary-soft: #fbe3da;
+  --on-bg: var(--ink);
+  --on-bg-soft: var(--ink-soft);
+  --on-bg-muted: var(--ink-muted);
+  --on-bg-hl: var(--primary-deep);
   --amber: #e79a1f;
   --gold: #c8912a;
   --leaf: #4f7a4a;
@@ -134,16 +138,16 @@ body {
   font-size: clamp(34px, 6vw, 58px);
   margin: 20px 0 12px;
   letter-spacing: 0.02em;
-  color: var(--ink);
+  color: var(--on-bg);
   text-shadow: 0 2px 0 rgba(255, 255, 255, 0.6);
 }
 .hero-sub {
   margin: 0 auto;
   max-width: 560px;
   font-size: clamp(14.5px, 2.2vw, 17px);
-  color: var(--ink-soft);
+  color: var(--on-bg-soft);
 }
-.hero-sub .hl { color: var(--primary-deep); font-weight: 700; padding: 0 2px; }
+.hero-sub .hl { color: var(--on-bg-hl); font-weight: 700; padding: 0 2px; }
 
 .today-hint {
   display: inline-block;
@@ -621,7 +625,7 @@ input::placeholder { color: #bda08d; }
 .result-foot .btn-primary { width: auto; padding: 13px 22px; font-size: 15.5px; }
 .result-tip { margin: 12px 0 0; font-size: 13.5px; color: var(--leaf); font-weight: 600; }
 
-.site-footer { position: relative; z-index: 1; text-align: center; padding: 24px 20px calc(48px + env(safe-area-inset-bottom, 0px)); color: var(--ink-muted); font-size: 13.5px; }
+.site-footer { position: relative; z-index: 1; text-align: center; padding: 24px 20px calc(48px + env(safe-area-inset-bottom, 0px)); color: var(--on-bg-muted); font-size: 13.5px; }
 .site-footer p { margin: 0; }
 
 /* ---------- 版本记录（文字链 + 弹窗） ---------- */
@@ -630,7 +634,7 @@ input::placeholder { color: #bda08d; }
   padding: 2px 4px;
   border: 0;
   background: none;
-  color: var(--ink-muted);
+  color: var(--on-bg-muted);
   font: inherit;
   font-size: 13px;
   cursor: pointer;

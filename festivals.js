@@ -41,7 +41,7 @@ const FESTIVALS = [
     palette: 'vivid red and gold, jubilant festive mood',
     withPerson: true,
     personDetail: 'wearing a red festive sweater, holding a paper-cut window decoration and a red lantern',
-    theme: { primary: '#c81e2b', deep: '#8c0f1a', soft: '#fbe0e0', amber: '#e0a020', gold: '#c8912a', bg1: '#fff4ee', bg2: '#ffe0d8', bg3: '#ffd0c4', ink: '#3a1a12', line: '#f0d6cc' }
+    theme: { primary: '#c81e2b', deep: '#8c0f1a', soft: '#fbe0e0', amber: '#e0a020', gold: '#c8912a', bg1: '#ef5b3d', bg2: '#e23a1e', bg3: '#c02410', ink: '#3a1a12', line: '#f0d6cc', onBg: '#ffffff', onBgSoft: 'rgba(255, 255, 255, 0.88)', onBgMuted: 'rgba(255, 255, 255, 0.75)', onBgHl: '#ffd44d' }
   },
   {
     id: 'lantern',
@@ -155,7 +155,7 @@ const FESTIVALS = [
     palette: 'rich red and golden, majestic celebratory mood',
     withPerson: true,
     personDetail: 'standing on a rooftop watching fireworks, holding a small flag',
-    theme: { primary: '#c81e2b', deep: '#8c0f1a', soft: '#fbe0e0', amber: '#e6b422', gold: '#c8912a', bg1: '#fff3f0', bg2: '#ffe0da', bg3: '#ffd0c6', ink: '#3a1512', line: '#f0d4ce' }
+    theme: { primary: '#c81e2b', deep: '#8c0f1a', soft: '#fbe0e0', amber: '#e6b422', gold: '#c8912a', bg1: '#e74526', bg2: '#de2910', bg3: '#c0210c', ink: '#3a1512', line: '#f0d4ce', onBg: '#ffffff', onBgSoft: 'rgba(255, 255, 255, 0.88)', onBgMuted: 'rgba(255, 255, 255, 0.75)', onBgHl: '#ffd44d' }
   },
   {
     id: 'qingming',
